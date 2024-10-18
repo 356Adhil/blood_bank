@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood Bank Management System</title>
+    <style>
+      /* CSS remains the same as before */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: #f9f9f9;
+      }
+      header {
+        background-color: #2196f3;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      header h1 {
+        font-size: 2.5rem;
+      }
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-around;
+      }
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
+      }
+      nav ul li a:hover {
+        background-color: #555;
+        border-radius: 5px;
+      }
+      main {
+        padding: 3rem 0;
+      }
+      .blood-inventory {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+      .blood-type {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+      }
+      .blood-type:hover {
+        transform: scale(1.05);
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+        margin: 2rem auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      input,
+      select,
+      button {
+        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      }
+      button {
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #1769aa;
+      }
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+        nav ul li {
+          margin-bottom: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Blood Bank Management System</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="donor-list.html">Donor List</a></li>
+        <li><a href="inventory-list.html">Inventory List</a></li>
+        <li><a href="request-list.html">Request List</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section id="home">
+        <h2>Welcome to our Blood Bank</h2>
+        <p>We manage blood donations and distributions to save lives.</p>
+      </section>
+      <section id="inventory">
+        <h2>Blood Inventory</h2>
+        <div class="blood-inventory">
+          <div class="blood-type">
+            <h3>A+</h3>
+            <p>Units: <span id="a-pos">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>A-</h3>
+            <p>Units: <span id="a-neg">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>B+</h3>
+            <p>Units: <span id="b-pos">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>B-</h3>
+            <p>Units: <span id="b-neg">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>AB+</h3>
+            <p>Units: <span id="ab-pos">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>AB-</h3>
+            <p>Units: <span id="ab-neg">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>O+</h3>
+            <p>Units: <span id="o-pos">0</span></p>
+          </div>
+          <div class="blood-type">
+            <h3>O-</h3>
+            <p>Units: <span id="o-neg">0</span></p>
+          </div>
+        </div>
+      </section>
+      <section id="donate">
+        <h2>Donate Blood</h2>
+        <form id="donation-form">
+          <input type="text" id="donor-name" placeholder="Full Name" required />
+          <input type="email" id="donor-email" placeholder="Email" required />
+          <select id="donor-blood-type" required>
+            <option value="">Select Blood Type</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+          <button type="submit">Submit Donation</button>
+        </form>
+      </section>
+      <section id="request">
+        <h2>Request Blood</h2>
+        <form id="request-form">
+          <input
+            type="text"
+            id="requester-name"
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            id="requester-email"
+            placeholder="Email"
+            required
+          />
+          <select id="requested-blood-type" required>
+            <option value="">Select Blood Type</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+          <input
+            type="number"
+            id="requested-units"
+            placeholder="Number of Units"
+            required
+          />
+          <button type="submit">Submit Request</button>
+        </form>
+      </section>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize inventory if it does not exist
+        if (!localStorage.getItem("inventory")) {
+          const inventory = {
+            "A+": 0,
+            "A-": 0,
+            "B+": 0,
+            "B-": 0,
+            "AB+": 0,
+            "AB-": 0,
+            "O+": 0,
+            "O-": 0,
+          };
+          localStorage.setItem("inventory", JSON.stringify(inventory));
+        }
+
+        function updateInventoryDisplay() {
+          const inventory = JSON.parse(localStorage.getItem("inventory"));
+          document.getElementById("a-pos").textContent = inventory["A+"];
+          document.getElementById("a-neg").textContent = inventory["A-"];
+          document.getElementById("b-pos").textContent = inventory["B+"];
+          document.getElementById("b-neg").textContent = inventory["B-"];
+          document.getElementById("ab-pos").textContent = inventory["AB+"];
+          document.getElementById("ab-neg").textContent = inventory["AB-"];
+          document.getElementById("o-pos").textContent = inventory["O+"];
+          document.getElementById("o-neg").textContent = inventory["O-"];
+        }
+
+        document
+          .getElementById("donation-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const bloodType = document.getElementById("donor-blood-type").value;
+            const donorName = document.getElementById("donor-name").value;
+            const donorEmail = document.getElementById("donor-email").value;
+
+            const inventory = JSON.parse(localStorage.getItem("inventory"));
+
+            if (bloodType) {
+              // Update inventory
+              inventory[bloodType]++;
+              localStorage.setItem("inventory", JSON.stringify(inventory));
+
+              // Add donor information to donor list
+              const donorList =
+                JSON.parse(localStorage.getItem("donorList")) || [];
+              donorList.push({
+                name: donorName,
+                email: donorEmail,
+                bloodType: bloodType,
+              });
+              localStorage.setItem("donorList", JSON.stringify(donorList));
+
+              alert("Thank you for your donation!");
+              this.reset();
+              updateInventoryDisplay();
+            }
+          });
+
+        document
+          .getElementById("request-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const bloodType = document.getElementById(
+              "requested-blood-type"
+            ).value;
+            const units = parseInt(
+              document.getElementById("requested-units").value
+            );
+            const requesterName =
+              document.getElementById("requester-name").value;
+            const requesterEmail =
+              document.getElementById("requester-email").value;
+            const inventory = JSON.parse(localStorage.getItem("inventory"));
+
+            // Check if enough units are available
+            if (inventory[bloodType] >= units) {
+              inventory[bloodType] -= units;
+              localStorage.setItem("inventory", JSON.stringify(inventory));
+
+              // Store request in localStorage
+              const requestList =
+                JSON.parse(localStorage.getItem("requestList")) || [];
+              requestList.push({
+                name: requesterName,
+                email: requesterEmail,
+                bloodType: bloodType,
+                units: units,
+                date: new Date().toLocaleString(),
+              });
+              localStorage.setItem("requestList", JSON.stringify(requestList));
+
+              alert("Your request has been processed successfully.");
+              this.reset();
+            } else {
+              alert(
+                "Sorry, we do not have enough units of this blood type available."
+              );
+            }
+            updateInventoryDisplay();
+          });
+
+        // Initialize inventory display
+        updateInventoryDisplay();
+      });
+    </script>
+  </body>
+</html>

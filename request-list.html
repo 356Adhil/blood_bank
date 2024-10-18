@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blood Request List</title>
+    <style>
+      /* Same CSS styles */
+      body {
+        font-family: "Poppins", sans-serif;
+        padding: 20px;
+        background-color: #f9f9f9;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      header {
+        background-color: #2196f3;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        border-radius: 8px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      table th,
+      table td {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      table th {
+        background-color: #f4f4f4;
+      }
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-around;
+      }
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
+      }
+      nav ul li a:hover {
+        background-color: #555;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Blood Request List</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="donor-list.html">Donor List</a></li>
+        <li><a href="inventory-list.html">Inventory List</a></li>
+        <li><a href="request-list.html">Request List</a></li>
+      </ul>
+    </nav>
+    <table id="request-list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Blood Type</th>
+          <th>Units Requested</th>
+          <th>Date Requested</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Request data will be populated here dynamically -->
+      </tbody>
+    </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const requestList =
+          JSON.parse(localStorage.getItem("requestList")) || [];
+        const requestTableBody = document.querySelector("#request-list tbody");
+
+        if (requestList.length === 0) {
+          const noDataRow = document.createElement("tr");
+          const noDataCell = document.createElement("td");
+          noDataCell.colSpan = 5;
+          noDataCell.textContent = "No blood requests found.";
+          noDataRow.appendChild(noDataCell);
+          requestTableBody.appendChild(noDataRow);
+        } else {
+          requestList.forEach((request) => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = request.name;
+            row.appendChild(nameCell);
+
+            const emailCell = document.createElement("td");
+            emailCell.textContent = request.email;
+            row.appendChild(emailCell);
+
+            const bloodTypeCell = document.createElement("td");
+            bloodTypeCell.textContent = request.bloodType;
+            row.appendChild(bloodTypeCell);
+
+            const unitsCell = document.createElement("td");
+            unitsCell.textContent = request.units;
+            row.appendChild(unitsCell);
+
+            const dateCell = document.createElement("td");
+            dateCell.textContent = request.date;
+            row.appendChild(dateCell);
+
+            requestTableBody.appendChild(row);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
